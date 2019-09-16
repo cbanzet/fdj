@@ -4,6 +4,7 @@ import { FormControl} from '@angular/forms';
 import { Observable} from 'rxjs';
 import { map, startWith} from 'rxjs/operators';
 import { Router } from '@angular/router';
+import { League } from './league.model';
 
 @Component({
   selector: 'app-championnat',
@@ -22,32 +23,24 @@ export class ChampionnatComponent implements OnInit {
 
   constructor(
     private fdjSrv: FdjService,
-    private route: Router)
-  {
-    this.filteredLeagues = this.leagueCtrl.valueChanges
-    .pipe(
-      startWith(''),
-      // map(league => league ? this._filterLeagues(league) : this.leagues.slice())
-      map((league) => {
-          if (league) {
-            if (league.strLeague) {
-              console.log(league);
-            }
-            // if (league) {
-            //   console.log(league);
-            // }
-            // this.fdjSrv.getTeamsInALeague(league).subscribe(
-            //   (data) => {
-            //     this.teams = data ? data : [];
-            //   }
-            // }
-            // this.showTeams = true;
-            return this._filterLeagues(league);
+    private route: Router) {
+      this.filteredLeagues = this.leagueCtrl.valueChanges
+      .pipe(
+        startWith(''),
+        map((value) => {
+          if (typeof value === 'string') {
+            return value;
           } else {
-            return this.leagues.slice();
+            this.route.navigate(['/teams/' + value.strLeague]);
+            return value.strLeague;
           }
-      })
+        }),
+        map(league => league ? this._filterLeagues(league) : this.leagues.slice())
     );
+  }
+
+  displayFn(league?: League): string | undefined {
+    return league ? league.strLeague : undefined;
   }
 
   ngOnInit() {
