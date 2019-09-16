@@ -1,8 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
+
 import { League } from './championnat/league.model';
+import { Teams } from './teams/teams.model';
 
 @Injectable({
   providedIn: 'root'
@@ -10,10 +12,7 @@ import { League } from './championnat/league.model';
 export class FdjService {
 
   apiLeagues = 'https://www.thesportsdb.com/api/v1/json/1/all_leagues.php';
-  // apiTeams = 'https://www.thesportsdb.com/api/v1/json/1/search_all_teams.php?l=English%20Premier%20League';
   apiTeams = 'https://www.thesportsdb.com/api/v1/json/1/search_all_teams.php?l=';
-
-  apiTeam = 'https://www.thesportsdb.com/api/v1/json/1/searchteams.php?t=Arsenal';
   apiTeamPlayers = 'https://www.thesportsdb.com/api/v1/json/1/lookup_all_players.php?id=';
 
   allLeagues = [];
@@ -21,10 +20,16 @@ export class FdjService {
   teams: any;
   players: any;
 
+  private strLeague = new Subject<string>();
+  private leagueTeams = new Subject<Teams[]>();
+
+  // strLeague$ = this.strLeague.asObservable();
+  // leagueTeams$ = this.leagueTeams.asObservable();
+
   constructor(private httpclient: HttpClient) { }
 
   getLeague(strLeague): Observable<any> {
-    return this.httpclient.get(`${this.apiTeams}${name}`)
+    return this.httpclient.get(`${this.apiTeams}${name}`);
   }
 
   getAllLeagues(): Observable<League[]> {
@@ -39,6 +44,30 @@ export class FdjService {
         })
       );
   }
+
+  strLeagueUpdate(strLeague) {
+    this.strLeague.next(strLeague);
+  }
+
+  accessActualLeague() {
+    return this.strLeague.asObservable();
+  }
+
+
+
+
+
+  getLeagueTeamsListener() {
+    return this.leagueTeams.asObservable();
+  }
+  updateLeague(strLeague: string) {
+    this.leagueTeams$ = this.httpclient.get(`${this.apiTeams}${strLeague}`)
+      .pipe(map((data: any) => {
+        return data.teams;
+      })
+    );
+  }
+
 
   getAllTeams() {
     return this.httpclient.get(this.apiTeams)

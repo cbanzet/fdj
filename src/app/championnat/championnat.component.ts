@@ -15,7 +15,7 @@ export class ChampionnatComponent implements OnInit {
 
   leagueCtrl = new FormControl();
   filteredLeagues: Observable<any[]>;
-  strLeague: string;
+  strLeague: Observable<string>;
   leagues = [];
   logo = './assets/logo.png';
   teams: any;
@@ -31,7 +31,10 @@ export class ChampionnatComponent implements OnInit {
           if (typeof value === 'string') {
             return value;
           } else {
-            this.route.navigate(['/teams/' + value.strLeague]);
+            // this.route.navigate(['/teams/' + value.strLeague]);
+            // this.strLeague = value.strLeague;
+            this.fdjSrv.strLeagueUpdate(value.strLeague);
+            // console.log(this.strLeague);
             return value.strLeague;
           }
         }),

@@ -1,11 +1,11 @@
 <!-- <pre>{{ leagues | json }}</pre> -->
 <!-- <pre>{{ teams | async | json }}</pre> -->
 
-<div [ngStyle]="{'margin':'10px'}" fxLayout="column">
- <div fxLayoutAlign="center center">
+<div [ngStyle]="{'margin':'10px'}" fxLayout="row wrap">
+ <div fxFlex="100" fxLayoutAlign="start center">
     <img [src]="logo">
  </div>
- <div>
+ <div fxFlex="100">
     <form fxFlex="100" fxLayoutAlign="start center">
       <mat-form-field fxFlex="100">
         <input matInput placeholder="Search League" aria-label="League" [matAutocomplete]="auto" [formControl]="leagueCtrl">
@@ -13,8 +13,8 @@
         <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
           <mat-option
             *ngFor="let league of filteredLeagues | async"
-            [routerLink]="['./teams', league.strLeague]"
             [value]="league">
+            <!-- [routerLink]="['./teams', league.strLeague]" -->
               <span>{{ league.strLeague }}</span>
           </mat-option>
         </mat-autocomplete>
@@ -23,16 +23,4 @@
   </div>
 </div>
 
-<!-- <ng-container *ngIf="teams">
-  <div fxLayout="row wrap">
-    <div fxFlex="50"
-      *ngFor="let team of teams"
-      [ngStyle]="{'padding':'10px'}"
-      fxLayoutAlign="center center">
-        <img fxFlex="60"
-          [src]="team.strTeamBadge"
-          [routerLink]="['./../team', team.strTeam]">
-    </div>
-  </div>
-</ng-container> -->
-
+<app-teams></app-teams>

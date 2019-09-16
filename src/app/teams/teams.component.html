@@ -1,17 +1,12 @@
 <!-- <pre>{{ teams | async | json }}</pre> -->
 
-<ng-template #loading>
+<ng-template #loading >
   <br><br><br><br>
-  <mat-spinner color="warn"></mat-spinner>
+  <div fxLayoutAlign="center center">
+      <mat-spinner color="warn"></mat-spinner>
+  </div>
   <br><br>
 </ng-template>
-
-<mat-toolbar>
-    <button mat-flat-button (click)="goBack()">
-      <i class="material-icons">search</i>
-      <span>Search Another League &nbsp;&nbsp;</span>
-    </button>
-</mat-toolbar>
 
 <div fxLayout="row wrap" *ngIf="teams | async; let teams; else loading" >
   <div fxFlex="50"

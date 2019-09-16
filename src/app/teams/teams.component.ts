@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FdjService } from './../fdj.service';
 import { Observable } from 'rxjs';
 import { Location } from '@angular/common';
@@ -12,7 +12,7 @@ import { ActivatedRoute, Params, ParamMap } from '@angular/router';
 })
 export class TeamsComponent implements OnInit {
 
-  strLeague: string;
+  strLeague;
   teams: any;
 
   constructor(
@@ -21,12 +21,14 @@ export class TeamsComponent implements OnInit {
     private route: ActivatedRoute) { }
 
   ngOnInit() {
-    // this.route.params.subscribe((params: Params) => {
-    //   this.teams =  this.fdjSrv.getTeamsInALeague(params['strLeague']);
-    // });
-    this.teams = this.route.params.pipe(switchMap((param: ParamMap) => {
-      return this.fdjSrv.getTeamsInALeague(param['strLeague']);
+
+    this.teams = this.fdjSrv.accessActualLeague().pipe(switchMap((value) => {
+      return this.fdjSrv.getTeamsInALeague(value);
     }));
+
+    // this.teams = this.route.params.pipe(switchMap((param: ParamMap) => {
+      // return this.fdjSrv.getTeamsInALeague(param['strLeague']);
+    // }));
   }
 
   goBack(): void {
