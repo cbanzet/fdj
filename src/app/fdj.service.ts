@@ -21,10 +21,6 @@ export class FdjService {
   players: any;
 
   private strLeague = new Subject<string>();
-  private leagueTeams = new Subject<Teams[]>();
-
-  // strLeague$ = this.strLeague.asObservable();
-  // leagueTeams$ = this.leagueTeams.asObservable();
 
   constructor(private httpclient: HttpClient) { }
 
@@ -51,21 +47,6 @@ export class FdjService {
 
   accessActualLeague() {
     return this.strLeague.asObservable();
-  }
-
-
-
-
-
-  getLeagueTeamsListener() {
-    return this.leagueTeams.asObservable();
-  }
-  updateLeague(strLeague: string) {
-    this.leagueTeams$ = this.httpclient.get(`${this.apiTeams}${strLeague}`)
-      .pipe(map((data: any) => {
-        return data.teams;
-      })
-    );
   }
 
 

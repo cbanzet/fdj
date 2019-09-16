@@ -13,26 +13,22 @@
       [ngStyle]="{'height':'40px','width':'auto','padding':'0 0 0 10px'}">
 </mat-toolbar>
 
-
-<!-- <ng-template #loading>
-    <br><br><br><br><br><br>
-    <mat-spinner color="warn"></mat-spinner>
-    <br><br>
-</ng-template> -->
-
-<div *ngIf="players | async; let players">
-  <div *ngFor="let player of players" [ngStyle]="{'background-color':'#eee', 'margin':'10px 0'}">
-    <div fxFlex="30">
-        <img *ngIf="player.strCutout" [src]="player.strCutout">
-        <img *ngIf="!player.strCutout&&player.strThumb" [src]="player.strThumb">
-    </div>
-    <div fxFlex="70" fxLayoutAlign="start center">
-      <div [ngStyle]="{'font-size':'1.1em', 'padding':'10px'}">
-        <strong>{{ player.strPlayer }}</strong><br>
-        <span>{{ player.strPosition }}</span><br>
-        <span *ngIf="player.dateBorn">Birthdate : {{ player.dateBorn | date }}</span><br>
-        <span *ngIf="player.strSigning">Price : {{ player.strSigning }}</span>
+<div *ngIf="players | async; let players" fxLayout="row wrap">
+  <div *ngFor="let player of players" 
+    fxFlex="100" fxFlex.lg="25" fxFlex.xl="20" fxFlex.md="33"
+    [ngStyle]="{'background-color':'#eee', 'margin':'10px 0'}">
+    <!-- [ngStyle.gt-md]="{'margin':'1px'}"> -->
+      <div fxFlex="30">
+          <img *ngIf="player.strCutout" [src]="player.strCutout">
+          <img *ngIf="!player.strCutout&&player.strThumb" [src]="player.strThumb">
       </div>
-    </div>
+      <div fxFlex="70" fxLayoutAlign="start center">
+        <div [ngStyle]="{'font-size':'1.1em', 'padding':'10px'}">
+          <strong>{{ player.strPlayer }}</strong><br>
+          <span>{{ player.strPosition }}</span><br>
+          <span *ngIf="player.dateBorn">Birthdate : {{ player.dateBorn | date }}</span><br>
+          <span *ngIf="player.strSigning">Price : {{ player.strSigning }}</span>
+        </div>
+      </div>
   </div>
 </div>
