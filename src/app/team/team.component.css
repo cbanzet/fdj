@@ -1,0 +1,22 @@
+img {
+  width: 80%;
+  height: auto;
+  padding: 20px 30px 20px 10px;
+}
+
+h1 {
+  padding-left: 10px;
+  text-align: right;
+  width: 100%;
+  font-weight: bold;
+  font-size: 1.1em;
+  text-transform: uppercase
+}
+
+strong {
+  color: #333;
+}
+span {
+  color: #666;
+  font-size: 0.8em;
+}

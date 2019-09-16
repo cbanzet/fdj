@@ -1,0 +1,25 @@
+<!-- <pre>{{ teams | async | json }}</pre> -->
+
+<ng-template #loading>
+  <br><br><br><br>
+  <mat-spinner color="warn"></mat-spinner>
+  <br><br>
+</ng-template>
+
+<mat-toolbar>
+    <button mat-flat-button (click)="goBack()">
+      <i class="material-icons">search</i>
+      <span>Search Another League &nbsp;&nbsp;</span>
+    </button>
+</mat-toolbar>
+
+<div fxLayout="row wrap" *ngIf="teams | async; let teams; else loading" >
+  <div fxFlex="50"
+    *ngFor="let team of teams"
+    [ngStyle]="{'padding':'15px'}"
+    fxLayoutAlign="center center">
+      <img fxFlex="50"
+        [src]="team.strTeamBadge"
+        [routerLink]="['./../../team', team.idTeam, team.strTeam, team.strTeamBadge]">
+  </div>
+</div>
