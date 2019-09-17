@@ -8,7 +8,7 @@
   <br><br>
 </ng-template>
 
-<div fxLayout="row wrap" *ngIf="teams | async; let teams; else loading" >
+<div fxLayout="row wrap" *ngIf="teams | async; let teams; else loading">
   <div fxFlex="50" fxFlex.lg="25" fxFlex.xl="20" fxFlex.md="33"
     *ngFor="let team of teams"
     [ngStyle]="{'padding':'15px'}"

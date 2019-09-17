@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, Subject } from 'rxjs';
-import { map, tap } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 
 import { League } from './championnat/league.model';
 import { Teams } from './teams/teams.model';
@@ -48,7 +48,6 @@ export class FdjService {
   accessActualLeague() {
     return this.strLeague.asObservable();
   }
-
 
   getAllTeams() {
     return this.httpclient.get(this.apiTeams)

@@ -1,11 +1,11 @@
 <!-- <pre>{{ leagues | json }}</pre> -->
 <!-- <pre>{{ teams | async | json }}</pre> -->
 
-<div [ngStyle]="{'margin':'10px'}" fxLayout="row wrap">
- <div fxFlex="100" fxLayoutAlign="start center">
+<div [ngStyle]="{'margin':'10px'}">
+ <!-- <div fxFlex="100" fxLayoutAlign="center center">
     <img [src]="logo">
- </div>
- <div fxFlex="100">
+ </div> -->
+ <div fxFlex="100" fxLayoutAlign="center center">
     <form fxFlex="100" fxLayoutAlign="start center">
       <mat-form-field fxFlex="100">
         <input matInput placeholder="Search League" aria-label="League" [matAutocomplete]="auto" [formControl]="leagueCtrl">
